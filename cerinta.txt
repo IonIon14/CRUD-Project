@@ -1,0 +1,5 @@
+Sa se faca o aplicatie de tip CRUD:
+1)sa se aduca lista de produse din db.json si sa se afiseze in lista cate un produs pe rand (done)
+2)sa se poata face operatiunea de stergere de produs prin butonul de delete(done)
+3)sa se poata adauga un produs prin completarea formularului de add product(done)
+4)in momentul in care se apasa pe butonul de "edit", formularul de la edit product va fi umplut cu valorile produsului selectat, valorile pot fi editate(in form), si in momentul in care se apasa pe "update product", produsul din lista va fi actualizat si formularul golit.

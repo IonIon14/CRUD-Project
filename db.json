@@ -1,0 +1,64 @@
+{
+  "products": [
+    {
+      "title": "motor",
+      "description": "Perfect t-shirt for autumn",
+      "price": "$100",
+      "size": "Large ",
+      "id": 1
+    },
+    {
+      "image": "images/cloth_2.jpg",
+      "title": "Polo Shirt",
+      "description": "Finding perfect products",
+      "price": 50,
+      "size": "Large",
+      "id": 2
+    },
+    {
+      "image": "images/cloth_1.jpg",
+      "title": "Tank Top",
+      "description": "Finding perfect products",
+      "price": 50,
+      "size": "Medium",
+      "id": 3
+    },
+    {
+      "image": "images/shoe.png",
+      "title": "Corater",
+      "description": "Finding perfect products",
+      "price": 50,
+      "size": "Medium",
+      "id": 4
+    },
+    {
+      "image": "images/cloth_1.jpg",
+      "title": "Beast T-shirt",
+      "description": "Perfect t-shirt for autumn",
+      "price": 100,
+      "size": "Large",
+      "id": 5
+    },
+    {
+      "title": "masina",
+      "description": "mare_rau",
+      "price": 2000,
+      "size": "imensa",
+      "id": 6
+    },
+    {
+      "title": "tricou",
+      "description": "mare",
+      "price": "200",
+      "size": "mare    ",
+      "id": 7
+    },
+    {
+      "title": "Masina",
+      "description": "foarte mare",
+      "price": "23400",
+      "size": "mare",
+      "id": 8
+    }
+  ]
+}
