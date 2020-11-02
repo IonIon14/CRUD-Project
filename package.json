@@ -7,5 +7,18 @@
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IonIon14/CRUD-Project.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/IonIon14/CRUD-Project/issues"
+  },
+  "homepage": "https://github.com/IonIon14/CRUD-Project#readme",
   "description": ""
 }

@@ -8,6 +8,8 @@ const sizeInput = document.querySelector('#exampleInputEmail8');
 const url = 'http://localhost:3000/products';
 let output = '';
 
+console.log(productsList);
+
 
 const fetchItems = (items) => {
     items.forEach(item => {
@@ -26,38 +28,32 @@ fetch(url)
         console.log(error);
     })
 
-const information = {
+let information = {
     title: "",
     description: "",
     price: "",
     size: ""
 };
 
-let informationArray = [];
-
 
 const loadingData = (event) => {
     let inputData = event.target.value;
     const key = event.target.dataset.toggle;
     information[key] = inputData;
-    informationArray.push(inputData);
 }
 
 
 addItemForm.addEventListener('submit', (e) => {
+
     e.preventDefault();
+    console.log(information);
     fetch(url, {
         method: 'POST',
         headers:
             {
                 'Content-type': 'application/json; charset=UTF-8'
             },
-        body: JSON.stringify({
-            title: informationArray[0],
-            description: informationArray[1],
-            price: informationArray[2],
-            size: informationArray[3]
-        })
+        body: JSON.stringify(information)
     })
         .then(resp => resp.json())
         .then(data => {
@@ -65,43 +61,42 @@ addItemForm.addEventListener('submit', (e) => {
             dataArray.push(data);
             fetchItems(dataArray);
         })
-    informationArray = [];
+
 })
 
 
-const deleteData = (id, url) => {
+const deleteData = (id) => {
     return fetch(`${url}/${id}`, {
         method: 'delete'
     }).then(response =>
         response.json().then(json => {
             return json;
         })
-            .then(() => location.reload())
+            .then(() => console.log("Data deleted"))
     );
 }
 productsList.addEventListener('click', (e) => {
+    console.log(e);
     e.preventDefault();
-    let id = e.target.parentElement.querySelector('.item-id').textContent;
+    const id = e.target.parentElement.querySelector('.item-id').textContent;
     let deleteButtonPressed = e.target.id === 'delete-post';
     let editButtonPressed = e.target.id === 'edit-post';
 
     //Delete request
     if (deleteButtonPressed) {
-        deleteData(id, url);
+        deleteData(id);
+        const parent = e.target.parentElement;
+        parent.remove();
     }
     if (editButtonPressed) {
         const parent = e.target.parentElement;
-        console.log(e);
-        console.log(parent);
-
-        // for(i=0;i<5;i++){
-        //     infoArray.push(textContent[i]);
-        // }
-
         const title = parent.querySelector('.item-title').textContent;
         const description = parent.querySelector('.item-description').textContent;
         const price = parent.querySelector('.item-price').innerText;
         const size = parent.querySelector('.item-size').textContent;
+
+        console.log(e);
+        console.log(parent);
         //
         //
         titleInput.value = title;
@@ -111,7 +106,6 @@ productsList.addEventListener('click', (e) => {
 
     }
     updateItemForm.addEventListener('submit', (e) => {
-        e.preventDefault();
         fetch(`${url}/${id}`, {
             method: 'PATCH',
             headers:
@@ -126,8 +120,7 @@ productsList.addEventListener('click', (e) => {
             })
         })
             .then(resp => resp.json())
-            .then(() => location.reload())
+            .then(() => console.log("Data changed"))
 
     })
-
 });
