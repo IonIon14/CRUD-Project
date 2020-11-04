@@ -14,68 +14,49 @@
 <body>
 <div class="container">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </li>
-        <li class="list-group-item">Cras justo odio
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </li>
-        <li class="list-group-item">Cras justo odio
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </li>
-        <li class="list-group-item">Cras justo odio
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </li>
-        <li class="list-group-item">Cras justo odio
-            <button type="button" class="btn btn-primary">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </li>
+
     </ul>
     <div class="d-flex">
-        <form class="w-100 add-form">
+        <form class="w-100 add-form" onsubmit="addProduct(event)">
             <div class="form-group">
                 <label for="exampleInputEmail1">Title</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       data-toggle="title" onchange="loadingData(event)">
+                       data-toggle="title" oninput="loadingData(event)">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2">Description</label>
                 <input type="text" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp"
-                       data-toggle="description" onchange="loadingData(event)">
+                       data-toggle="description" oninput="loadingData(event)">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail3">Price</label>
                 <input type="text" class="form-control" id="exampleInputEmail3" aria-describedby="emailHelp"
-                       data-toggle="price" onchange="loadingData(event)">
+                       data-toggle="price" oninput="loadingData(event)">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail4">Size</label>
                 <input type="text" class="form-control" id="exampleInputEmail4" aria-describedby="emailHelp"
-                       data-toggle="size" onchange="loadingData(event)">
+                       data-toggle="size" oninput="loadingData(event)">
             </div>
             <button type="submit" class="btn btn-primary">Add product</button>
         </form>
 
-        <form class="w-100 ml-4 update-form ">
+        <form class="w-100 ml-4 update-form" onsubmit="updateProductSubmit(event)">
             <div class="form-group">
                 <label for="exampleInputEmail5">Title</label>
-                <input type="text" class="form-control" id="exampleInputEmail5" aria-describedby="emailHelp" >
+                <input type="text" class="form-control" id="exampleInputEmail5" aria-describedby="emailHelp" oninput="loadingData(event)" >
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail6">Description</label>
-                <input type="text" class="form-control" id="exampleInputEmail6" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="exampleInputEmail6" aria-describedby="emailHelp" oninput="loadingData(event)" >
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail7">Price</label>
-                <input type="text" class="form-control" id="exampleInputEmail7" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="exampleInputEmail7" aria-describedby="emailHelp" oninput="loadingData(event)" >
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail8">Size</label>
-                <input type="text" class="form-control" id="exampleInputEmail8" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="exampleInputEmail8" aria-describedby="emailHelp" oninput="loadingData(event)">
             </div>
             <button type="submit" class="btn btn-primary update-button">Update product</button>
         </form>

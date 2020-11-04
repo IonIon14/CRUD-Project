@@ -7,27 +7,7 @@ const priceInput = document.querySelector('#exampleInputEmail7');
 const sizeInput = document.querySelector('#exampleInputEmail8');
 const url = 'http://localhost:3000/products';
 let output = '';
-
-console.log(productsList);
-
-
-const fetchItems = (items) => {
-    items.forEach(item => {
-        output += `<li class="list-group-item"><span class="item-id">${item.id}</span> <span class="item-title">${item.title}</span> <span class="item-description">${item.description}</span> <span class="item-price">${item.price}</span> <span class="item-size">${item.size} </span><button type="button" id="edit-post" data-id="${item.id}" class="btn btn-primary ml-2"> Edit</button> <button type="button" id="delete-post" class="btn btn-danger">Delete</button></li>`;
-    });
-    productsList.innerHTML = output;
-};
-
-//GET METHOD
-fetch(url)
-    .then(response => response.json())
-    .then((data) => {
-        fetchItems(data);
-    })
-    .catch((error) => {
-        console.log(error);
-    })
-
+let currentProduct;
 let information = {
     title: "",
     description: "",
@@ -36,18 +16,110 @@ let information = {
 };
 
 
-const loadingData = (event) => {
-    let inputData = event.target.value;
-    const key = event.target.dataset.toggle;
-    information[key] = inputData;
+const fetchItems = (items) => {
+    items.forEach(item => {
+
+        const listItem = document.createElement('li');
+        listItem.setAttribute('data-id', item.id);
+        listItem.classList.add('list-group-item');
+
+
+        const spanTitleElement = document.createElement('span');
+        spanTitleElement.className = 'item-title mr-1';
+        const spanTitleText = document.createTextNode(item.title);
+        spanTitleElement.appendChild(spanTitleText);
+
+        listItem.appendChild(spanTitleElement);
+
+        const spanDescriptionElement = document.createElement('span');
+        spanDescriptionElement.className = 'item-description mr-1';
+        const spanDescriptionText = document.createTextNode(item.description);
+        spanDescriptionElement.appendChild(spanDescriptionText);
+
+        listItem.appendChild(spanDescriptionElement);
+
+        const spanPriceElement = document.createElement('span');
+        spanPriceElement.className = 'item-price mr-1';
+        const spanPriceText = document.createTextNode(item.price);
+        spanPriceElement.appendChild(spanPriceText);
+
+        listItem.appendChild(spanPriceElement);
+
+        const spanSizeElement = document.createElement('span');
+        spanSizeElement.className = 'item-size mr-1';
+        const spanSizeText = document.createTextNode(item.size);
+        spanSizeElement.appendChild(spanSizeText);
+
+        listItem.appendChild(spanSizeElement);
+
+        const editButton = document.createElement('button');
+        editButton.setAttribute('type', 'button');
+        editButton.setAttribute('data-id', item.id);
+        editButton.classList.add('btn', 'btn-primary', 'ml-2');
+        const editButtonText = document.createTextNode('Edit');
+        editButton.appendChild(editButtonText);
+
+        listItem.appendChild(editButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.setAttribute('type', 'button');
+        deleteButton.setAttribute('data-id', item.id);
+        deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+        const deleteButtonText = document.createTextNode('Delete');
+        deleteButton.appendChild(deleteButtonText);
+
+        listItem.appendChild(deleteButton);
+        productsList.appendChild(listItem);
+
+        editButton.addEventListener('click', (e) => {
+
+                titleInput.value = item.title;
+                console.log(titleInput.value);
+                descriptionInput.value = item.description;
+                priceInput.value = item.price;
+                sizeInput.value = item.size;
+                currentProduct = item;
+            }
+        )
+        deleteButton.addEventListener('click', (e) => {
+            currentProduct = item;
+            deleteData(item.id);
+        })
+    });
+};
+
+
+//inlocuit then uri cu async await
+//GET METHOD
+async function getMethod() {
+    let response = await fetch(url, {
+        method: 'GET'
+    });
+    let data = await response.json();
+    return data;
 }
 
+async function updateMethod() {
+    let response = await fetch(`${url}/${currentProduct.id}`, {
+        method: 'PUT',
+        headers:
+            {
+                'Content-type': 'application/json; charset=UTF-8'
+            },
+        body: JSON.stringify({
+            title: titleInput.value,
+            description: descriptionInput.value,
+            price: priceInput.value,
+            size: sizeInput.value
+        })
+    })
 
-addItemForm.addEventListener('submit', (e) => {
+    let data = response.json();
+    return data;
+}
 
-    e.preventDefault();
-    console.log(information);
-    fetch(url, {
+async function postMethod() {
+    let response = await fetch(url, {
         method: 'POST',
         headers:
             {
@@ -55,72 +127,65 @@ addItemForm.addEventListener('submit', (e) => {
             },
         body: JSON.stringify(information)
     })
-        .then(resp => resp.json())
+    const data = response.json();
+    return data;
+}
+
+async function deleteMethod(url, id) {
+    const response = await fetch(`${url}/${id}`, {
+        method: 'DELETE'
+    });
+    let data = await response.json();
+    return data;
+}
+
+
+const updateProductSubmit = (e) => {
+    e.preventDefault();
+    updateMethod()
+        .then(() => {
+                console.log("data changed");
+                getMethod()
+                    .then((data) => {
+                        fetchItems(data);
+                    })
+                    .catch((error) =>
+                        console.log(error)
+                    );
+
+                e.target.reset();
+            }
+        )
+};
+
+const loadingData = (event) => {
+    let inputData = event.target.value;
+    const key = event.target.dataset.toggle;
+    information[key] = inputData;
+}
+
+const addProduct = (e) => {
+    e.preventDefault();
+    postMethod()
         .then(data => {
             const dataArray = [];
             dataArray.push(data);
             fetchItems(dataArray);
         })
-
-})
-
+};
 
 const deleteData = (id) => {
-    return fetch(`${url}/${id}`, {
-        method: 'delete'
-    }).then(response =>
-        response.json().then(json => {
-            return json;
+    deleteMethod(url, id)
+        .then(() => {
+            console.log("Data deleted");
+            const productToBeRemoved = document.querySelector(`.list-group-item[data-id='${currentProduct.id}']`);
+            productToBeRemoved.remove();
         })
-            .then(() => console.log("Data deleted"))
-    );
 }
-productsList.addEventListener('click', (e) => {
-    console.log(e);
-    e.preventDefault();
-    const id = e.target.parentElement.querySelector('.item-id').textContent;
-    let deleteButtonPressed = e.target.id === 'delete-post';
-    let editButtonPressed = e.target.id === 'edit-post';
-
-    //Delete request
-    if (deleteButtonPressed) {
-        deleteData(id);
-        const parent = e.target.parentElement;
-        parent.remove();
-    }
-    if (editButtonPressed) {
-        const parent = e.target.parentElement;
-        const title = parent.querySelector('.item-title').textContent;
-        const description = parent.querySelector('.item-description').textContent;
-        const price = parent.querySelector('.item-price').innerText;
-        const size = parent.querySelector('.item-size').textContent;
-
-        console.log(e);
-        console.log(parent);
-        //
-        //
-        titleInput.value = title;
-        descriptionInput.value = description;
-        priceInput.value = price;
-        sizeInput.value = size;
-
-    }
-    updateItemForm.addEventListener('submit', (e) => {
-        fetch(`${url}/${id}`, {
-            method: 'PATCH',
-            headers:
-                {
-                    'Content-type': 'application/json; charset=UTF-8'
-                },
-            body: JSON.stringify({
-                title: titleInput.value,
-                description: descriptionInput.value,
-                price: priceInput.value,
-                size: sizeInput.value
-            })
-        })
-            .then(resp => resp.json())
-            .then(() => console.log("Data changed"))
-
+getMethod()
+    .then((data) => {
+        fetchItems(data);
     })
-});
+    .catch((error) =>
+        console.log(error)
+    );

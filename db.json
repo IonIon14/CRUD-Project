@@ -1,81 +1,11 @@
 {
   "products": [
     {
-      "title": "Masinuta",
+      "title": "Camasa",
       "description": "323",
-      "price": "123",
-      "size": "mare        ",
+      "price": "23400",
+      "size": "mare",
       "id": 1
-    },
-    {
-      "title": "Carusel",
-      "description": "masinuta",
-      "price": "200",
-      "size": "mic",
-      "id": 2
-    },
-    {
-      "title": "Camasa",
-      "description": "323",
-      "price": "23400",
-      "size": "mare",
-      "id": 3
-    },
-    {
-      "title": "Masina",
-      "description": "foarte mare",
-      "price": "200",
-      "size": "mare",
-      "id": 4
-    },
-    {
-      "title": "Masina",
-      "description": "foarte mare",
-      "price": "23400",
-      "size": "mare",
-      "id": 5
-    },
-    {
-      "title": "Camasa",
-      "description": "foarte mare",
-      "price": "23400",
-      "size": "5353",
-      "id": 6
-    },
-    {
-      "title": "Maieu",
-      "description": "200",
-      "price": "300",
-      "size": "500",
-      "id": 7
-    },
-    {
-      "title": "Maieu",
-      "description": "31231",
-      "price": "23400",
-      "size": "mare ",
-      "id": 8
-    },
-    {
-      "title": "Camasa",
-      "description": "323",
-      "price": "23400",
-      "size": "mare",
-      "id": 9
-    },
-    {
-      "title": "Camasa",
-      "description": "3212",
-      "price": "23400",
-      "size": "Small",
-      "id": 11
-    },
-    {
-      "title": "Camasa",
-      "description": "foarte mare",
-      "price": "3123@3123",
-      "size": "5353",
-      "id": 12
     }
   ]
 }
