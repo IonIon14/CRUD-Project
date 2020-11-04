@@ -1,11 +1,18 @@
 {
   "products": [
     {
-      "title": "Camasa",
-      "description": "323",
+      "title": "Masina",
+      "description": "maret",
       "price": "23400",
       "size": "mare",
-      "id": 1
+      "id": 2
+    },
+    {
+      "title": "Masina",
+      "description": "maret",
+      "price": "23400",
+      "size": "Small",
+      "id": 3
     }
   ]
 }

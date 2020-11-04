@@ -95,9 +95,17 @@ async function getMethod() {
     let response = await fetch(url, {
         method: 'GET'
     });
-    let data = await response.json();
+    const data = await response.json();
     return data;
 }
+getMethod()
+    .then((data) => {
+        fetchItems(data);
+    })
+    .catch((error) =>
+        console.log(error)
+    );
+
 
 async function updateMethod() {
     let response = await fetch(`${url}/${currentProduct.id}`, {
@@ -114,7 +122,7 @@ async function updateMethod() {
         })
     })
 
-    let data = response.json();
+    const data = response.json();
     return data;
 }
 
@@ -145,14 +153,11 @@ const updateProductSubmit = (e) => {
     updateMethod()
         .then(() => {
                 console.log("data changed");
-                getMethod()
-                    .then((data) => {
-                        fetchItems(data);
-                    })
-                    .catch((error) =>
-                        console.log(error)
-                    );
-
+                const productToBeUpdated = document.querySelector(`.list-group-item[data-id='${currentProduct.id}']`);
+                productToBeUpdated.querySelector('.item-title').textContent = titleInput.value;
+                productToBeUpdated.querySelector('.item-description').textContent = descriptionInput.value;
+                productToBeUpdated.querySelector('.item-price').textContent = priceInput.value;
+                productToBeUpdated.querySelector('.item-size').textContent = sizeInput.value;
                 e.target.reset();
             }
         )
@@ -182,10 +187,3 @@ const deleteData = (id) => {
             productToBeRemoved.remove();
         })
 }
-getMethod()
-    .then((data) => {
-        fetchItems(data);
-    })
-    .catch((error) =>
-        console.log(error)
-    );
